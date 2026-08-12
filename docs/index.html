@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="resetPasswordTitle">Set New Password — Vote</title>
+  <meta name="description" content="Reset your password for the Vote application." />
+  <meta name="theme-color" content="#6750A4" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:,">
+  <style>
+    /* ──────────────────────────────────────────────
+       Material 3 — Deep Purple seed color scheme
+       Matches the Flutter app: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
+       Color values generated from Material 3 baseline palette (seed #6750A4)
+       ────────────────────────────────────────────── */
+    :root {
+      --md-sys-color-primary: #6750a4;
+      --md-sys-color-on-primary: #ffffff;
+      --md-sys-color-primary-container: #eaddff;
+      --md-sys-color-on-primary-container: #21005d;
+      --md-sys-color-secondary: #625b71;
+      --md-sys-color-on-secondary: #ffffff;
+      --md-sys-color-secondary-container: #e8def6;
+      --md-sys-color-on-secondary-container: #1d1a22;
+      --md-sys-color-surface: #fdfbff;
+      --md-sys-color-on-surface: #1c1b1f;
+      --md-sys-color-surface-variant: #e8e0f8;
+      --md-sys-color-on-surface-variant: #49454f;
+      --md-sys-color-error: #ba1a0b;
+      --md-sys-color-on-error: #ffffff;
+      --md-sys-color-error-container: #ffdad6;
+      --md-sys-color-on-error-container: #410002;
+      --md-sys-color-outline: #79747e;
+      --md-sys-color-border: #cac4d0;
+      --md-sys-color-shadow: #000000;
+      --md-sys-color-surface-tint: #6750a4;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --md-sys-color-primary: #d0bcff;
+        --md-sys-color-on-primary: #21005d;
+        --md-sys-color-primary-container: #381e72;
+        --md-sys-color-on-primary-container: #eaddff;
+        --md-sys-color-secondary: #cbbbe0;
+        --md-sys-color-on-secondary: #312f3f;
+        --md-sys-color-secondary-container: #4a4658;
+        --md-sys-color-on-secondary-container: #e8def6;
+        --md-sys-color-surface: #121219;
+        --md-sys-color-on-surface: #e3e2e6;
+        --md-sys-color-surface-variant: #49454f;
+        --md-sys-color-on-surface-variant: #cac4d0;
+        --md-sys-color-error: #ffb4a0;
+        --md-sys-color-on-error: #690005;
+        --md-sys-color-error-container: #9b0000;
+        --md-sys-color-on-error-container: #ffdad6;
+        --md-sys-color-outline: #938f99;
+        --md-sys-color-border: #49454f;
+        --md-sys-color-surface-tint: #d0bcff;
+      }
+    }
+
+    /* Base — Material 3 uses Roboto */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background-color: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    /* Material 3 typography scale */
+    .display-large { font-weight: 400; font-size: 3.5rem; line-height: 4.0625rem; letter-spacing: -0.0176rem; }
+    .display-medium { font-weight: 400; font-size: 2.8125rem; line-height: 3.5rem; letter-spacing: -0.0145rem; }
+    .title-large { font-weight: 500; font-size: 1.375rem; line-height: 1.875rem; letter-spacing: 0.0074rem; }
+    .title-medium { font-weight: 500; font-size: 1.1rem; line-height: 1.5rem; letter-spacing: 0.0013rem; }
+    .title-small { font-weight: 500; font-size: 0.875rem; line-height: 1.2rem; letter-spacing: 0.0029rem; }
+    .body-large { font-weight: 400; font-size: 1.0625rem; line-height: 1.5625rem; letter-spacing: 0.0074rem; }
+    .body-medium { font-weight: 400; font-size: 0.9375rem; line-height: 1.375rem; letter-spacing: 0.0008rem; }
+    .body-small { font-weight: 400; font-size: 0.8125rem; line-height: 1.125rem; letter-spacing: 0.0056rem; }
+
+    /* ── Material 3 Top App Bar ── */
+    .md-top-app-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: var(--md-sys-color-surface);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--md-sys-color-border);
+      z-index: 100;
+    }
+    .md-top-app-bar .title {
+      color: var(--md-sys-color-on-surface);
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background-color: var(--md-sys-color-surface);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08),
+                  0 4px 8px rgba(0, 0, 0, 0.08),
+                  0 8px 24px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--md-sys-color-border);
+      max-width: 400px;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    /* ── Prompt ── */
+    .prompt {
+      color: var(--md-sys-color-on-surface-variant);
+      font-size: 1.0625rem;
+      line-height: 1.5625rem;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    /* ── Input field (Material 3 outlined) ── */
+    .input-field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+    .input-label {
+      color: var(--md-sys-color-on-surface-variant);
+      font-size: 0.875rem;
+      line-height: 1.2rem;
+      padding: 0 4px;
+      letter-spacing: 0.0013rem;
+      margin-bottom: 4px;
+    }
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-wrapper input {
+      width: 100%;
+      padding: 16px 12px 16px 16px;
+      border: 1px solid var(--md-sys-color-outline);
+      border-radius: 12px;
+      background-color: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+      font-size: 1rem;
+      font-weight: 400;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+    }
+    .input-wrapper input:focus {
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent);
+    }
+    .input-wrapper .prefix-icon {
+      position: absolute;
+      left: 12px;
+      display: flex;
+      align-items: center;
+      color: var(--md-sys-color-on-surface-variant);
+      width: 24px;
+      height: 24px;
+      pointer-events: none;
+      font-size: 18px;
+    }
+    .input-wrapper input.with-prefix {
+      padding-left: 44px;
+    }
+    .input-wrapper input.with-suffix {
+      padding-right: 44px;
+    }
+    .input-wrapper .suffix-icon {
+      position: absolute;
+      right: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--md-sys-color-on-surface-variant);
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 18px;
+      user-select: none;
+    }
+    .input-wrapper .suffix-icon:hover {
+      background-color: var(--md-sys-color-on-surface);
+      opacity: 0.08;
+    }
+    .input-error-text {
+      color: var(--md-sys-color-error);
+      font-size: 0.75rem;
+      line-height: 1.2rem;
+      padding: 0 4px;
+      margin-top: 4px;
+    }
+
+    /* ── Filled button ── */
+    .filled-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 44px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 24px;
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+      font-weight: 500;
+      font-size: 0.9375rem;
+      line-height: 1.2rem;
+      letter-spacing: 0.0013rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+      width: 100%;
+    }
+    .filled-button:hover:not(:disabled) {
+      background-color: color-mix(in srgb, var(--md-sys-color-primary) 88%, black);
+    }
+    .filled-button:disabled {
+      background-color: var(--md-sys-color-on-surface);
+      opacity: 0.12;
+      cursor: not-allowed;
+    }
+    .filled-button .btn-text { display: inline; }
+    .filled-button .spinner { display: none; }
+
+    /* ── Text button ── */
+    .text-button {
+      background: none;
+      border: none;
+      color: var(--md-sys-color-primary);
+      font-weight: 500;
+      font-size: 0.9375rem;
+      line-height: 1.2rem;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+    }
+    .text-button:hover {
+      background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+    }
+
+    /* ── Alert ── */
+    .alert {
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .alert.error {
+      background-color: var(--md-sys-color-error-container);
+      color: var(--md-sys-color-on-error-container);
+    }
+    .alert.success {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+    .alert-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .alert-text {
+      font-size: 0.9375rem;
+      line-height: 1.375rem;
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Material 3 Top App Bar -->
+  <header class="md-top-app-bar">
+    <div class="title" id="appBarTitle">Set New Password</div>
+  </header>
+
+  <main class="card" id="mainCard">
+    <div id="content">
+      <!-- Token missing state (matches Flutter's token == null check) -->
+      <div id="tokenMissingState" style="display:none;">
+        <div class="alert error">
+          <span class="alert-icon">⚠</span>
+          <span class="alert-text" id="tokenMissingText">No reset token was found in the link. Please request a new password reset link.</span>
+        </div>
+        <div style="text-align: center; margin-top: 24px;">
+          <button class="filled-button" onclick="requestNewLink()">
+            <span class="btn-text" id="requestNewLinkBtn">Request New Link</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Password form state (token present) -->
+      <div id="passwordFormState">
+        <p class="prompt" id="resetPrompt">Enter a new password below. Your password must be at least 8 characters.</p>
+
+        <form id="resetForm" autocomplete="off" novalidate>
+          <!-- New password field -->
+          <div class="input-field">
+            <label class="input-label" id="newPasswordLabel" for="newPassword">New Password</label>
+            <div class="input-wrapper">
+              <span class="prefix-icon">🔒</span>
+              <input type="password" id="newPassword" class="with-prefix with-suffix" autocomplete="new-password" minlength="8" required />
+              <span class="suffix-icon" id="toggleNewPassword" onclick="togglePassword('newPassword')">👁️</span>
+            </div>
+            <div class="input-error-text" id="newPasswordError" style="display:none;"></div>
+          </div>
+
+          <!-- Confirm password field -->
+          <div class="input-field">
+            <label class="input-label" id="confirmPasswordLabel" for="confirmPassword">Confirm New Password</label>
+            <div class="input-wrapper">
+              <span class="prefix-icon">🔒</span>
+              <input type="password" id="confirmPassword" class="with-prefix with-suffix" autocomplete="new-password" minlength="8" required />
+              <span class="suffix-icon" id="toggleConfirmPassword" onclick="togglePassword('confirmPassword')">👁️</span>
+            </div>
+            <div class="input-error-text" id="confirmPasswordError" style="display:none;"></div>
+          </div>
+
+          <!-- API error message -->
+          <div id="apiErrorContainer" style="display:none;">
+            <div class="alert error">
+              <span class="alert-icon">⚠</span>
+              <span class="alert-text" id="apiErrorMessage"></span>
+            </div>
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="filled-button" id="submitButton">
+            <span class="btn-text" id="submitButtonText">Set New Password</span>
+            <div class="spinner" id="spinner"></div>
+          </button>
+        </form>
+      </div>
+
+      <!-- Success state (matches Flutter's _resetSuccessfully = true) -->
+      <div id="successState" style="display:none;">
+        <div class="alert success">
+          <span class="alert-icon">✓</span>
+          <span class="alert-text" id="successMessage">Your password has been reset. You can now sign in with your new password.</span>
+        </div>
+        <div style="text-align: center; margin-top: 24px;">
+          <button class="filled-button" onclick="navigateBackToApp()">
+            <span class="btn-text" id="backToLoginBtn">Back to Login</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /* ──────────────────────────────────────────────
+       i18n — translations match the Flutter app's
+       lib/l10n/app_en.arb and lib/l10n/app_de.arb
+       ────────────────────────────────────────────── */
+    const translations = {
+      en: {
+        appBarTitle: "Set New Password",
+        resetPrompt: "Enter a new password below. Your password must be at least 8 characters.",
+        newPasswordLabel: "New Password",
+        confirmPasswordLabel: "Confirm New Password",
+        submitButton: "Set New Password",
+        backToLoginBtn: "Back to Login",
+        requestNewLinkBtn: "Request New Link",
+        tokenMissing: "No reset token was found in the link. Please request a new password reset link.",
+        tokenInvalid: "This password reset link is invalid, expired, or has already been used. Please request a new one.",
+        tokenExpired: "This password reset link has expired. Please request a new one.",
+        passwordMinLength: "Password must be at least 8 characters",
+        passwordsDoNotMatch: "Passwords do not match",
+        resetSuccess: "Your password has been reset. You can now sign in with your new password.",
+        apiError: "An unexpected error occurred. Please try again.",
+        networkError: "Network error. Please check your connection and try again.",
+      },
+      de: {
+        appBarTitle: "Neues Passwort festlegen",
+        resetPrompt: "Gib ein neues Passwort ein. Es muss mindestens 8 Zeichen lang sein.",
+        newPasswordLabel: "Neues Passwort",
+        confirmPasswordLabel: "Neues Passwort bestätigen",
+        submitButton: "Passwort festlegen",
+        backToLoginBtn: "Zurück zur Anmeldung",
+        requestNewLinkBtn: "Neuen Link anfordern",
+        tokenMissing: "Es wurde kein Reset-Token in dem Link gefunden. Bitte fordere einen neuen Link zum Zurücksetzen des Passworts an.",
+        tokenInvalid: "Dieser Link zum Zurücksetzen des Passworts ist ungültig, abgelaufen oder wurde bereits verwendet. Bitte fordere einen neuen an.",
+        tokenExpired: "Der Link zum Zurücksetzen des Passworts ist abgelaufen. Bitte fordere einen neuen an.",
+        passwordMinLength: "Das Passwort muss mindestens 8 Zeichen lang sein",
+        passwordsDoNotMatch: "Passwörter stimmen nicht überein",
+        resetSuccess: "Dein Passwort wurde zurückgesetzt. Du kannst dich nun mit deinem neuen Passwort anmelden.",
+        apiError: "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.",
+        networkError: "Netzwerkfehler. Bitte prüfe deine Verbindung und versuche es erneut.",
+      },
+    };
+
+    /* ──────────────────────────────────────────────
+       Configuration
+       ────────────────────────────────────────────── */
+    const API_BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+      ? 'http://127.0.0.1:8848'
+      : 'https://api.vote.app';
+
+    // The Flutter app handles vote.app/reset-password?token=… deep links.
+    // When the user clicks the link in email and the app is not installed,
+    // the browser opens the static site at reset.vote4it.org which serves
+    // this page. The "request new link" / "back to login" buttons redirect
+    // to the app's web presence.
+    const APP_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+      ? 'http://127.0.0.1:8848'
+      : 'https://vote.app';
+
+    /* ──────────────────────────────────────────────
+       State
+       ────────────────────────────────────────────── */
+    let currentLang = 'en';
+    let currentToken = null;
+    let isSubmitting = false;
+    let passwordVisible = { newPassword: false, confirmPassword: false };
+
+    /* ──────────────────────────────────────────────
+       i18n helpers
+       ────────────────────────────────────────────── */
+    function t(key) {
+      const lang = translations[currentLang] || translations.en;
+      return lang[key] || translations.en[key] || key;
+    }
+
+    function detectLanguage() {
+      const browserLang = navigator.language || navigator.userLanguage || 'en';
+      if (browserLang.startsWith('de')) {
+        currentLang = 'de';
+      } else {
+        currentLang = 'en';
+      }
+      document.documentElement.lang = currentLang;
+    }
+
+    function updateText() {
+      document.getElementById('appBarTitle').textContent = t('appBarTitle');
+      document.title = t('appBarTitle') + ' — Vote';
+      document.getElementById('resetPrompt').textContent = t('resetPrompt');
+      document.getElementById('newPasswordLabel').textContent = t('newPasswordLabel');
+      document.getElementById('confirmPasswordLabel').textContent = t('confirmPasswordLabel');
+      document.getElementById('submitButtonText').textContent = t('submitButton');
+      document.getElementById('backToLoginBtn').textContent = t('backToLoginBtn');
+      document.getElementById('requestNewLinkBtn').textContent = t('requestNewLinkBtn');
+      document.getElementById('tokenMissingText').textContent = t('tokenMissing');
+      document.getElementById('successMessage').textContent = t('resetSuccess');
+    }
+
+    /* ──────────────────────────────────────────────
+       Token extraction — matches DeepLinkService.extractResetToken
+       ────────────────────────────────────────────── */
+    function extractToken() {
+      const params = new URLSearchParams(window.location.search);
+      let token = params.get('token');
+
+      if (!token) {
+        // Some older email clients / web servers move query params to the hash
+        const hash = window.location.hash.substring(1);
+        const hashParams = new URLSearchParams(hash);
+        token = hashParams.get('token');
+      }
+
+      return token;
+    }
+
+    /* ──────────────────────────────────────────────
+       Password visibility toggle
+       ────────────────────────────────────────────── */
+    function togglePassword(fieldId) {
+      const field = document.getElementById(fieldId);
+      const toggleBtn = document.getElementById('toggle' + fieldId.charAt(0).toUpperCase() + fieldId.slice(1));
+
+      if (field.type === 'password') {
+        field.type = 'text';
+        passwordVisible[fieldId] = true;
+      } else {
+        field.type = 'password';
+        passwordVisible[fieldId] = false;
+      }
+    }
+
+    /* ──────────────────────────────────────────────
+       Form validation — matches Flutter app validators
+       ────────────────────────────────────────────── */
+    function clearErrors() {
+      document.getElementById('newPasswordError').style.display = 'none';
+      document.getElementById('confirmPasswordError').style.display = 'none';
+      document.getElementById('apiErrorContainer').style.display = 'none';
+    }
+
+    function validateForm() {
+      clearErrors();
+      const password = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      let valid = true;
+
+      // Password empty / min length (backend enforces 8 char minimum)
+      if (!password || password.length < 8) {
+        document.getElementById('newPasswordError').textContent = t('passwordMinLength');
+        document.getElementById('newPasswordError').style.display = 'block';
+        valid = false;
+      }
+
+      // Confirm password empty / min length
+      if (!confirmPassword || confirmPassword.length < 8) {
+        document.getElementById('confirmPasswordError').textContent = t('passwordMinLength');
+        document.getElementById('confirmPasswordError').style.display = 'block';
+        valid = false;
+      }
+
+      // Passwords do not match
+      if (confirmPassword && password && confirmPassword !== password) {
+        document.getElementById('confirmPasswordError').textContent = t('passwordsDoNotMatch');
+        document.getElementById('confirmPasswordError').style.display = 'block';
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    /* ──────────────────────────────────────────────
+       API call — matches AuthService.resetPassword
+       ────────────────────────────────────────────── */
+    async function submitReset() {
+      if (isSubmitting) return;
+
+      const formValid = validateForm();
+      if (!formValid) return;
+
+      const password = document.getElementById('newPassword').value;
+
+      isSubmitting = true;
+      const submitBtn = document.getElementById('submitButton');
+      const submitText = document.getElementById('submitButtonText');
+      const spinner = document.getElementById('spinner');
+
+      submitBtn.disabled = true;
+      submitText.style.display = 'none';
+      spinner.style.display = 'block';
+
+      try {
+        const response = await fetch(API_BASE_URL + '/user/password/reset', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            token: currentToken,
+            password: password,
+          }),
+        });
+
+        if (response.ok) {
+          // Success — show confirmation state (matches Flutter's _resetSuccessfully = true)
+          document.getElementById('passwordFormState').style.display = 'none';
+          document.getElementById('apiErrorContainer').style.display = 'none';
+          document.getElementById('successState').style.display = 'block';
+        } else {
+          let errorMsg = t('apiError');
+          try {
+            const errorData = await response.json();
+            if (errorData.error) {
+              errorMsg = errorData.error;
+            } else if (errorData.message) {
+              errorMsg = errorData.message;
+            }
+          } catch (e) {
+            // Use default error message
+          }
+
+          // For known token errors (invalid/expired/used), surface a clear message
+          if (response.status === 400 || response.status === 401 || response.status === 403 || response.status === 410) {
+            errorMsg = errorMsg || t('tokenInvalid');
+          }
+
+          document.getElementById('apiErrorMessage').textContent = errorMsg;
+          document.getElementById('apiErrorContainer').style.display = 'block';
+        }
+      } catch (error) {
+        document.getElementById('apiErrorMessage').textContent = t('networkError');
+        document.getElementById('apiErrorContainer').style.display = 'block';
+      } finally {
+        isSubmitting = false;
+        submitBtn.disabled = false;
+        submitText.style.display = 'inline';
+        spinner.style.display = 'none';
+      }
+    }
+
+    /* ──────────────────────────────────────────────
+       Navigation helpers
+       ────────────────────────────────────────────── */
+    function requestNewLink() {
+      // Redirect to the forgot-password page in the Flutter app.
+      // The email template links should point to this static site when
+      // the app is not installed, or to the deep link when it is.
+      window.location.href = APP_URL + '/forgot-password';
+    }
+
+    function navigateBackToApp() {
+      // After successful reset, navigate back to the app's login screen.
+      window.location.href = APP_URL + '/login';
+    }
+
+    /* ──────────────────────────────────────────────
+       Initialization
+       ────────────────────────────────────────────── */
+    function init() {
+      detectLanguage();
+      updateText();
+
+      // Extract token from URL (matches DeepLinkService.extractResetToken)
+      currentToken = extractToken();
+
+      const tokenMissingState = document.getElementById('tokenMissingState');
+      const passwordFormState = document.getElementById('passwordFormState');
+      const successState = document.getElementById('successState');
+
+      if (!currentToken || currentToken.trim() === '') {
+        // No token — show the "token missing" state (matches Flutter's token null check)
+        tokenMissingState.style.display = 'block';
+        passwordFormState.style.display = 'none';
+        successState.style.display = 'none';
+      } else {
+        // Token present — show the reset form
+        tokenMissingState.style.display = 'none';
+        passwordFormState.style.display = 'block';
+        successState.style.display = 'none';
+      }
+    }
+
+    document.getElementById('resetForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitReset();
+    });
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', init);
+
+    // Also re-init if the page is restored from bfcache
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) {
+        init();
+      }
+    });
+  </script>
+</body>
+</html>
