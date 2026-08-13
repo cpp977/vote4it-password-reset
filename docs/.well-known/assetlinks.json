@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.dev.vote",
+      "sha256_cert_fingerprints": [
+        "9E:1E:DE:3B:F6:AE:44:D0:40:0C:C8:6C:C1:29:2C:93:7B:C6:03:27:3F:D2:05:B1:3A:96:38:60:82:96:41:6E"
+      ]
+    }
+  }
+]
