@@ -432,8 +432,8 @@
        Configuration
        ────────────────────────────────────────────── */
     const API_BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
-      ? 'http://127.0.0.1:8848'
-      : 'https://api.vote.app';
+      ? 'https://vote-backend.local:8443'
+          : 'https://vote-backend.duckdns.org:8443';
 
     // The Flutter app handles vote.app/reset-password?token=… deep links.
     // When the user clicks the link in email and the app is not installed,
@@ -441,8 +441,8 @@
     // this page. The "request new link" / "back to login" buttons redirect
     // to the app's web presence.
     const APP_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
-      ? 'http://127.0.0.1:8848'
-      : 'https://vote.app';
+      ? 'https://vote-backend.local:8443'
+      : 'https://vote-backend.duckdns.org:8443';
 
     /* ──────────────────────────────────────────────
        State
